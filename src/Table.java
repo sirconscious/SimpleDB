@@ -10,6 +10,9 @@ public class Table {
         this.dbPath = dbPath ;
         createTable();
     }
+    public String getPath(){
+        return dbPath + "/" + tableName ;
+    }
     public void createTable(){
         File file = new File(dbPath + "/" + tableName + ".csv");
         if (file.exists()){

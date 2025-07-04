@@ -47,8 +47,11 @@ public class DB {
         }
         return file.delete();
     }
-    public void createTable (String tableName){
-        Table table = new Table(tableName , getPath());
+    public Table createTable (String tableName){
+            return (new Table(tableName , getPath()));
 
+    }
+    public Table table(String tableName){
+            return (new Table(tableName , getPath())) ;
     }
 }

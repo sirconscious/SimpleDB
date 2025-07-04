@@ -3,7 +3,8 @@
 public class Main {
     public static void main(String[] args) {
         DB db = new DB("myDB") ;
-        db.createTable("users");
-        db.createTable("posts");
+        Table usersTable =    db.createTable("users");
+        Table postsTable = db.table("posts");
+        System.out.println(postsTable.getPath());
     }
 }
