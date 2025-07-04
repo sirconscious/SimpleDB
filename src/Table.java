@@ -104,4 +104,44 @@ public class Table {
             System.out.println("Error reading file: " + e.getMessage());
         }
     }
+    public void getOne(String column, String value) {
+        File file = new File(dbPath + "/" + tableName + ".csv");
+
+        if (!file.exists()) {
+            System.out.println("The table doesn't exist.");
+            return;
+        }
+
+        try (Scanner reader = new Scanner(file)) {
+            List<String> cols = Arrays.asList(reader.nextLine().split(","));
+
+            if (!cols.contains(column)) {
+                System.out.println("The column provided doesn't exist.");
+                return;
+            }
+
+            int index = cols.indexOf(column);
+            List<List<String>> matchedRows = new ArrayList<>();
+
+            while (reader.hasNextLine()) {
+                List<String> currentRow = Arrays.asList(reader.nextLine().split(","));
+                if (currentRow.size() > index && currentRow.get(index).equals(value)) {
+                    matchedRows.add(currentRow);
+                }
+            }
+
+            if (matchedRows.isEmpty()) {
+                System.out.println("No matching rows found.");
+            } else {
+                System.out.println(String.join(" | ", cols)); // Print headers
+                for (List<String> row : matchedRows) {
+                    System.out.println(String.join(" | ", row));
+                }
+            }
+
+        } catch (IOException e) {
+            System.out.println("Error reading file: " + e.getMessage());
+        }
+    }
+
 }

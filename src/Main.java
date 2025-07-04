@@ -14,5 +14,6 @@ public class Main {
 //                ,{"6" , "test","this is just a test"}
 //        });
         blogs.getAll();
+        blogs.getOne("title" , "test4");
     }
 }
