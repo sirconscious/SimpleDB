@@ -6,5 +6,8 @@ public class Main {
          //Table usersTable =    db.createTable("users");
         Table blogs = db.table("blogs") ;
         blogs.defineColumns(new String[]{"id", "title" , "body"});
+        blogs.insertOne(new String[]{"1" , "test","this is just a test"});
+        blogs.insertOne(new String[]{"2" , "test","this is just a test"});
+        blogs.insertOne(new String[]{"3" , "test","this is just a test"});
     }
 }

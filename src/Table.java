@@ -6,7 +6,7 @@ import java.io.Writer;
 public class Table {
     public String dbPath ;
     public String tableName ;
-
+    private boolean columnsDefined =false;
     Table(String tableName , String dbPath){
         this.tableName = tableName ;
         this.dbPath = dbPath ;
@@ -38,14 +38,30 @@ public class Table {
     }
 
     public void defineColumns(String[] columns){
+        if (!this.columnsDefined){
 
-        try (FileWriter file = new FileWriter(dbPath + "/" + tableName + ".csv") ;){
+        try (FileWriter file = new FileWriter(dbPath + "/" + tableName + ".csv" ) ;){
             for (int i = 0 ; i < columns.length ; i++){
                 file.append(columns[i])
                         .append(i < columns.length - 1 ? "," : "\n");            }
-
+            this.columnsDefined = true ;
         }catch (IOException e){
             System.out.println(e.getMessage());
+        }
+        }
+    }
+    public void insertOne(String[] values){
+        if (!this.columnsDefined){
+            System.out.println("you must define the columns first") ;
+        }else {
+            try(FileWriter file = new FileWriter(dbPath+"/"+tableName+".csv" , true);){
+            for (int i=0 ; i < values.length ; i++ ){
+                file.append(values[i])
+                        .append(i < values.length - 1 ? "," : "\n");             }
+            }catch (IOException e){
+                System.out.println(e.getMessage());
+            }
+
         }
     }
 }
