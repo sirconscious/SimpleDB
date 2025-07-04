@@ -1,7 +1,8 @@
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Writer;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
 
 public class Table {
     public String dbPath ;
@@ -81,6 +82,26 @@ public class Table {
                 System.out.println(e.getMessage());
             }
 
+        }
+    }
+    public void getAll() {
+        File file = new File(dbPath + "/" + tableName + ".csv");
+        List<List<String>> table = new ArrayList<>();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                List<String> row = Arrays.asList(line.split(","));
+                table.add(row);
+            }
+
+            for (List<String> row : table) {
+                System.out.println(row);
+            }
+
+            System.out.println("Total lines: " + table.size());
+        } catch (IOException e) {
+            System.out.println("Error reading file: " + e.getMessage());
         }
     }
 }
