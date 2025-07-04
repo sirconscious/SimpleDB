@@ -58,6 +58,25 @@ public class Table {
             for (int i=0 ; i < values.length ; i++ ){
                 file.append(values[i])
                         .append(i < values.length - 1 ? "," : "\n");             }
+            System.out.println("the values are inserted");
+            }catch (IOException e){
+                System.out.println(e.getMessage());
+            }
+
+        }
+    }
+    public void insertMany(String[][] values){
+        if (!this.columnsDefined){
+            System.out.println("you must define the columns first") ;
+        }else {
+            try(FileWriter file = new FileWriter(dbPath+"/"+tableName+".csv" , true);){
+                for (String[] line : values){
+                    for (int j=0 ; j < line.length ; j++){
+                        file.append(line[j])
+                                .append(j < values.length - 1 ? "," : "\n");
+                    }
+                }
+                System.out.println("the values are inserted");
             }catch (IOException e){
                 System.out.println(e.getMessage());
             }
