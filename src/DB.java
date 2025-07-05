@@ -3,10 +3,17 @@ import java.io.File;
 public class DB {
     final String directory = "data";
     public String dbName;
-
+    final String RED = "\u001B[31m";
+    final String RESET = "\u001B[0m";
     DB(String dbName) {
+        System.out.println( RED +"▄▖▘     ▜     ▄ ▄ \n" +
+                "▚ ▌▛▛▌▛▌▐ █▌  ▌▌▙▘\n" +
+                "▄▌▌▌▌▌▙▌▐▖▙▖▗ ▙▘▙▘\n" +
+                "      ▌           \n" +
+                "\n"+RESET);
         this.dbName = dbName;
         createDB();
+
     }
     public String getPath(){
         return directory + "/" + dbName ;

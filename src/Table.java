@@ -104,7 +104,7 @@ public class Table {
             System.out.println("Error reading file: " + e.getMessage());
         }
     }
-    public void getOne(String column, String value) {
+    public void getBy(String column, String value) {
         File file = new File(dbPath + "/" + tableName + ".csv");
 
         if (!file.exists()) {
@@ -141,6 +141,57 @@ public class Table {
 
         } catch (IOException e) {
             System.out.println("Error reading file: " + e.getMessage());
+        }
+    }
+    public void delete(String column, String value) {
+        File file = new File(dbPath + "/" + tableName + ".csv");
+
+        if (!file.exists()) {
+            System.out.println("The table doesn't exist.");
+            return;
+        }
+
+        List<String> lines = new ArrayList<>();
+
+        try (Scanner reader = new Scanner(file)) {
+            while (reader.hasNextLine()) {
+                lines.add(reader.nextLine());
+            }
+        } catch (IOException e) {
+            System.out.println("Error reading file: " + e.getMessage());
+            return;
+        }
+
+        if (lines.isEmpty()) {
+            System.out.println("The table is empty.");
+            return;
+        }
+
+        List<String> headers = Arrays.asList(lines.get(0).split(","));
+        int colIndex = headers.indexOf(column);
+
+        if (colIndex == -1) {
+            System.out.println(column + " is not a valid column.");
+            return;
+        }
+
+        List<String> filtered = new ArrayList<>();
+        filtered.add(lines.get(0)); // keep header
+
+        for (int i = 1; i < lines.size(); i++) {
+            String[] parts = lines.get(i).split(",", -1); // use -1 to keep trailing empty fields
+            if (parts.length <= colIndex || !parts[colIndex].equals(value)) {
+                filtered.add(lines.get(i));
+            }
+        }
+
+        try (FileWriter writer = new FileWriter(file)) {
+            for (String row : filtered) {
+                writer.write(row + "\n");
+            }
+            System.out.println("Deleted rows where " + column + " = " + value);
+        } catch (IOException e) {
+            System.out.println("Error writing file: " + e.getMessage());
         }
     }
 

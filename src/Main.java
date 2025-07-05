@@ -13,7 +13,8 @@ public class Main {
 //                {"5" , "test","this is just a test"}
 //                ,{"6" , "test","this is just a test"}
 //        });
-        blogs.getAll();
-        blogs.getOne("title" , "test4");
+//        blogs.getAll();
+//        blogs.getBy("title" , "test4");
+        blogs.delete("title" , "test4");
     }
 }
