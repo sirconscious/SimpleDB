@@ -61,4 +61,13 @@ public class DB {
     public Table table(String tableName){
             return (new Table(tableName , getPath())) ;
     }
+    public void deleteTable(String tableName){
+        File table = new File(getPath()+"/"+tableName+".csv");
+        if (!table.exists()){
+            System.out.println("the table doesnt exist");
+        }else {
+            table.delete();
+            System.out.println("the table is deleted");
+        }
+    }
 }

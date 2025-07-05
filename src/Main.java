@@ -16,5 +16,6 @@ public class Main {
 //        blogs.getAll();
 //        blogs.getBy("title" , "test4");
         blogs.delete("title" , "test4");
+        db.deleteTable("users");
     }
 }
